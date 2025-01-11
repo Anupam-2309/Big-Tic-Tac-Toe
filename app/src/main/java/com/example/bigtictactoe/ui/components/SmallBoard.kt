@@ -28,7 +28,7 @@ fun SmallBoard(
             .clip(RoundedCornerShape(8.dp))
             .background(Surface)
             .border(
-                width = 2.dp,
+                width = if (isActive) 3.dp else 2.dp,
                 color = if (isActive) MaterialTheme.colorScheme.primary else GridLineColor,
                 shape = RoundedCornerShape(8.dp)
             )
@@ -44,24 +44,38 @@ fun SmallBoard(
                 }
             }
         } else {
-            // Show small board grid
+            // Show small board grid with visible grid lines
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 for (row in 0..2) {
                     Row(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier
+                            .weight(1f)
+                            .border(
+                                width = if (row > 0) 1.dp else 0.dp,
+                                color = GridLineColor.copy(alpha = 0.5f)
+                            ),
                         horizontalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         for (col in 0..2) {
                             val index = row * 3 + col
-                            Cell(
-                                value = board[index],
-                                enabled = isActive && !isWon,
-                                onClick = { onCellClick(index) },
-                                modifier = Modifier.weight(1f)
-                            )
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .border(
+                                        width = if (col > 0) 1.dp else 0.dp,
+                                        color = GridLineColor.copy(alpha = 0.5f)
+                                    )
+                            ) {
+                                Cell(
+                                    value = board[index],
+                                    enabled = isActive && !isWon,
+                                    onClick = { onCellClick(index) },
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                            }
                         }
                     }
                 }
