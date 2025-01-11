@@ -10,6 +10,7 @@ import com.example.bigtictactoe.ui.components.BigBoard
 import com.example.bigtictactoe.ui.components.ScoreDisplay
 import com.example.bigtictactoe.ui.theme.Secondary
 import com.example.bigtictactoe.ui.animation.WinnerCelebration
+import com.example.bigtictactoe.game.GameState
 
 @Composable
 fun GameScreen(
@@ -23,6 +24,8 @@ fun GameScreen(
     onResetClick: () -> Unit,
     showWinnerCelebration: Boolean,
     onWinnerDismiss: () -> Unit,
+    gameMode: GameState.GameMode,
+    onGameModeChange: (GameState.GameMode) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -32,6 +35,23 @@ fun GameScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
+        // Add game mode selector at the top
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            GameModeButton(
+                text = "VS Player",
+                selected = gameMode == GameState.GameMode.VS_PLAYER,
+                onClick = { onGameModeChange(GameState.GameMode.VS_PLAYER) }
+            )
+            GameModeButton(
+                text = "VS Bot",
+                selected = gameMode == GameState.GameMode.VS_BOT,
+                onClick = { onGameModeChange(GameState.GameMode.VS_BOT) }
+            )
+        }
+
         // Top section with scores
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -91,5 +111,23 @@ fun GameScreen(
                 onPlayAgain = onResetClick
             )
         }
+    }
+}
+
+@Composable
+private fun GameModeButton(
+    text: String,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (selected) MaterialTheme.colorScheme.primary 
+                           else MaterialTheme.colorScheme.secondary
+        ),
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Text(text)
     }
 } 

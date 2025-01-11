@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 class GameState {
+    // Game state properties
     var bigBoard by mutableStateOf(List(9) { null as String? })
         private set
     
@@ -32,6 +33,17 @@ class GameState {
     var showWinnerCelebration by mutableStateOf(false)
         private set
 
+    // Bot-related properties
+    private var _gameMode by mutableStateOf(GameMode.VS_PLAYER)
+    val gameMode: GameMode get() = _gameMode
+    
+    private val botPlayer = BotPlayer()
+
+    enum class GameMode {
+        VS_PLAYER,
+        VS_BOT
+    }
+
     private val winningCombinations = listOf(
         listOf(0, 1, 2), listOf(3, 4, 5), listOf(6, 7, 8), // Rows
         listOf(0, 3, 6), listOf(1, 4, 7), listOf(2, 5, 8), // Columns
@@ -39,35 +51,46 @@ class GameState {
     )
 
     fun makeMove(smallBoardIndex: Int, cellIndex: Int): Boolean {
-        // Check if the move is valid
         if (!isValidMove(smallBoardIndex, cellIndex)) return false
 
-        // Make the move
+        // Make player move
+        if (!performMove(smallBoardIndex, cellIndex)) return false
+
+        // If playing against bot and game isn't over, make bot move
+        if (_gameMode == GameMode.VS_BOT && !gameOver && currentPlayer == "O") {
+            val (botBoardIndex, botCellIndex) = botPlayer.makeMove(
+                bigBoard,
+                smallBoards,
+                activeSmallBoard
+            )
+            performMove(botBoardIndex, botCellIndex)
+        }
+
+        return true
+    }
+
+    private fun performMove(smallBoardIndex: Int, cellIndex: Int): Boolean {
         val newSmallBoards = smallBoards.toMutableList()
         val newSmallBoard = newSmallBoards[smallBoardIndex].toMutableList()
         newSmallBoard[cellIndex] = currentPlayer
         newSmallBoards[smallBoardIndex] = newSmallBoard
         smallBoards = newSmallBoards
 
-        // Check if small board is won
         if (checkWinner(newSmallBoard)) {
             val newBigBoard = bigBoard.toMutableList()
             newBigBoard[smallBoardIndex] = currentPlayer
             bigBoard = newBigBoard
 
-            // Check if game is won
             if (checkWinner(bigBoard)) {
                 handleGameWin()
                 return true
             }
         } else if (isSmallBoardFull(newSmallBoard)) {
-            // Mark small board as drawn
             val newBigBoard = bigBoard.toMutableList()
             newBigBoard[smallBoardIndex] = "D"
             bigBoard = newBigBoard
         }
 
-        // Update active board and switch player
         updateGameState(cellIndex)
         return true
     }
@@ -123,5 +146,10 @@ class GameState {
 
     fun dismissWinnerCelebration() {
         showWinnerCelebration = false
+    }
+
+    fun updateGameMode(newMode: GameMode) {
+        _gameMode = newMode
+        resetGame()
     }
 } 

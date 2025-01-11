@@ -44,6 +44,8 @@ fun MainScreen() {
         },
         onResetClick = { gameState.resetGame() },
         showWinnerCelebration = gameState.showWinnerCelebration,
-        onWinnerDismiss = { gameState.dismissWinnerCelebration() }
+        onWinnerDismiss = { gameState.dismissWinnerCelebration() },
+        gameMode = gameState.gameMode,
+        onGameModeChange = { gameState.updateGameMode(it) }
     )
 }
