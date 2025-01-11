@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:translateX="21.6"
+        android:translateY="21.6">
+        <!-- Grid lines -->
+        <path
+            android:fillColor="#00000000"
+            android:strokeColor="#000000"
+            android:strokeWidth="4"
+            android:pathData="M36,0 L36,108 M72,0 L72,108 M0,36 L108,36 M0,72 L108,72" />
+        
+        <!-- X in top-left cell -->
+        <path
+            android:strokeColor="#00BCD4"
+            android:strokeWidth="4"
+            android:strokeLineCap="round"
+            android:pathData="M10,10 L26,26 M26,10 L10,26" />
+            
+        <!-- O in center cell -->
+        <path
+            android:strokeColor="#F44336"
+            android:strokeWidth="4"
+            android:strokeLineCap="round"
+            android:pathData="M54,54 A10,10 0 1,1 54,54 A10,10 0 1,0 54,54" />
+    </group>
+</vector>

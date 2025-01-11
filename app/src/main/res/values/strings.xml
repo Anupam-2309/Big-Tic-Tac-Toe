@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Big Tic Tac Toe</string>
+    <string name="reset_game">Reset Game</string>
+    <string name="player_turn">Player %1$s\'s Turn</string>
+    <string name="free_choice">Free choice of board</string>
+    <string name="play_in_board">Play in board %1$d</string>
+    
+    <!-- Instructions -->
+    <string name="instructions_title">How to Play Big Tic Tac Toe</string>
+    <string name="instructions_text">Welcome to Big Tic Tac Toe! This is an advanced version of the classic game where each cell contains its own smaller Tic Tac Toe board.</string>
+    <string name="instructions_rules_title">Rules:</string>
+    <string name="instructions_rules">1. Win small boards to claim them in the big board\n\n2. Your move determines which small board your opponent must play in next\n\n3. If sent to a completed board, you can play in any available board\n\n4. Win three small boards in a row to win the game!</string>
+    <string name="got_it">Got it!</string>
+    
+    <!-- Score -->
+    <string name="score">Score</string>
+    <string name="player_x">Player X: %1$d</string>
+    <string name="player_o">Player O: %1$d</string>
+    
+    <!-- History -->
+    <string name="game_history">Game History</string>
+    <string name="winner">Winner: %1$s</string>
+    <string name="show_history">History</string>
+</resources>
