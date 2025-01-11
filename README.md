@@ -1,10 +1,10 @@
 ## Download Latest Release
 
 ### Quick Download
-[Download Latest APK](https://github.com/yourusername/BigTicTacToe/releases/latest/download/bigtictactoe-latest.apk)
+[Download Latest APK](app/release)
 
 ### All Versions
-- [Version 1.0.0](https://github.com/yourusername/BigTicTacToe/releases/download/v1.0.0/bigtictactoe-v1.0.0.apk) - Initial Release
+- [Version 1.0.0](app/release) - Initial Release
   - Added VS Bot mode
   - Improved UI/UX
   - Bug fixes
